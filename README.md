@@ -219,14 +219,25 @@ pdflatex main.tex
 If you use this framework, code, datasets, or figures in your research, please cite:
 
 ```bibtex
-@article{barua2026rlcacc,
-  title={Reinforcement Learning--Enhanced Cooperative Adaptive Cruise Control (RL-CACC) in Signalized Mixed-Autonomy Urban Networks},
-  author={Barua, Saurav and Contributors},
+@article{hassan2026rlcacc,
+  title={Reinforcement Learning--Enhanced Cooperative Adaptive Cruise Control (RL-CACC) in Signalized Mixed-Autonomy Urban Networks: Multi-Regime Dynamics, String Stability, and Gridlock Hysteresis},
+  author={Hassan, Mahbub},
   journal={IEEE Transactions on Intelligent Transportation Systems},
   year={2026},
   note={Under Review}
 }
 ```
+
+---
+
+## 👨‍💻 Author & Contact
+
+**Mahbub Hassan**  
+Transportation Engineering Division, Department of Civil Engineering  
+Faculty of Engineering, Chulalongkorn University, Bangkok 10330, Thailand  
+- **Email:** [mahbub.hassan@ieee.org](mailto:mahbub.hassan@ieee.org)  
+- **ORCID:** [0009-0006-1956-8159](https://orcid.org/0009-0006-1956-8159)  
+- **GitHub:** [@mahbubchula](https://github.com/mahbubchula)
 
 ---
 

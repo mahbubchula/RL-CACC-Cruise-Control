@@ -3,9 +3,9 @@
 =========================================================================================
 ADVANCED PHYSICS-INFORMED RESIDUAL RL-CACC & MIXED-AUTONOMY SUMO SIMULATION FRAMEWORK
 =========================================================================================
-Author: Saurav Barua
+Author: Mahbub Hassan (Chulalongkorn University, mahbub.hassan@ieee.org)
 Project: Reinforcement Learning-Enhanced Cooperative Adaptive Cruise Control in Mixed Traffic
-Repository: https://github.com/sauravbarua02-netizen/CruiseControl
+Repository: https://github.com/mahbubchula/RL-CACC-Cruise-Control
 
 Key Architectural Advancements Over Baseline Scripts (f.1 / f.2 / comparison / improvement):
 1. Hybrid Residual Policy Synthesis: Combines nominal V2V CACC feedback-feedforward control
