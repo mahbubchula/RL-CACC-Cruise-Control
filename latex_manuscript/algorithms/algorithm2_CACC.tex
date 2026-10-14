@@ -1,0 +1,28 @@
+%% Upgraded Algorithm 2: V2V-Enabled Cooperative Adaptive Cruise Control (CACC)
+\begin{algorithm}[htbp]
+\caption{V2V-Enabled Cooperative Adaptive Cruise Control (CACC) with Packet-Drop Fallback}
+\label{alg:cacc}
+\begin{algorithmic}[1]
+\Require Ego speed $v_t$, radar gap $g_t$, V2V packet $\{v_{l,t-\tau_c}, a_{l,t-\tau_c}\}$, packet drop indicator $\xi_{\text{drop}} \in \{0, 1\}$, cooperative headway $\tau_{\text{CACC}} = 0.5\text{ s}$, fallback headway $\tau_{\text{fb}} = 0.85\text{ s}$, minimum gap $s_{0,\text{CACC}} = 0.5\text{ m}$.
+\Ensure Cooperative baseline target velocity $v_{\text{base},t}^{\text{CACC}}$.
+\For{each CACC vehicle $i \in \mathcal{V}_{\text{CACC}}(t)$}
+    \State Query leader tuple $(l, g_t) \gets \texttt{getLeader}(i, 100.0\text{ m})$
+    \If{leader $l$ exists}
+        \If{$\xi_{\text{drop}} == 0$ \textbf{and} $l \in \mathcal{V}_{\text{CACC}} \cup \mathcal{V}_{\text{RL-CACC}}$}
+            \State $v_l \gets v_{l,t-\tau_c}, \quad \tau_{\text{eff}} \gets \tau_{\text{CACC}} = 0.50\text{ s}$
+        \Else
+            \State $v_l \gets v_t - \Delta v_t, \quad \tau_{\text{eff}} \gets \tau_{\text{fb}} = 0.85\text{ s}$ \Comment{Graceful fallback}
+        \EndIf
+        \State $d_{\text{des},t} \gets s_{0,\text{CACC}} + \tau_{\text{eff}} v_t$
+        \If{$g_t < d_{\text{des},t}$}
+            \State $v_{\text{base},t}^{\text{CACC}} \gets \max(0.0, \, v_l - 2.0\text{ m/s})$
+        \Else
+            \State $v_{\text{base},t}^{\text{CACC}} \gets \min(v_{\max}, \, v_l + 1.0\text{ m/s})$
+        \EndIf
+    \Else
+        \State $v_{\text{base},t}^{\text{CACC}} \gets v_{\max}$
+    \EndIf
+    \State Apply $\texttt{setSpeed}(i, \, v_{\text{base},t}^{\text{CACC}})$
+\EndFor
+\end{algorithmic}
+\end{algorithm}

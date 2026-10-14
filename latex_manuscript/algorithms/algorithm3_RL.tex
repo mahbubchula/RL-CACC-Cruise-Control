@@ -1,0 +1,21 @@
+%% Upgraded Algorithm 3: Standalone 3D PPO Reinforcement Learning Control (RL-ACC)
+\begin{algorithm}[htbp]
+\caption{Standalone 3D PPO Reinforcement Learning Longitudinal Control (RL-ACC)}
+\label{alg:rl}
+\begin{algorithmic}[1]
+\Require Pre-trained 3D PPO actor policy $\pi_\theta(s_t^{\text{RL}})$, acceleration bounds $a_t^{\text{RL}} \in [-3.0, +2.0]\text{ m/s}^2$, headway $\tau_{\text{RL}} = 0.8\text{ s}$, minimum gap $s_{0,\text{RL}} = 1.0\text{ m}$, step $\Delta t = 1.0\text{ s}$.
+\Ensure Commanded longitudinal speed $v_{\text{cmd},t}^{\text{RL}}$.
+\For{each standalone RL vehicle $i \in \mathcal{V}_{\text{RL}}(t)$}
+    \State Measure ego speed $v_t$ and radar leader tuple $(l, g_t) \gets \texttt{getLeader}(i, 100.0\text{ m})$
+    \If{leader $l$ exists}
+        \State $v_{l,t} \gets \texttt{getSpeed}(l), \quad \Delta v_t \gets v_t - v_{l,t}$
+    \Else
+        \State $g_t \gets 100.0\text{ m}, \quad \Delta v_t \gets 0.0\text{ m/s}$
+    \EndIf
+    \State Construct 3D local state vector $s_t^{\text{RL}} \gets [v_t, \, \min(g_t, 100.0), \, \Delta v_t]^\top$
+    \State Evaluate PPO actor policy: $a_t^{\text{RL}} \gets \operatorname{clip}\left(\pi_\theta(s_t^{\text{RL}}), \, -3.0, \, +2.0\right)$
+    \State Compute $v_{\text{cmd},t}^{\text{RL}} \gets \operatorname{clip}\left(v_t + a_t^{\text{RL}} \Delta t, \, 0.0, \, v_{\max}\right)$
+    \State Apply $\texttt{setSpeed}(i, \, v_{\text{cmd},t}^{\text{RL}})$
+\EndFor
+\end{algorithmic}
+\end{algorithm}

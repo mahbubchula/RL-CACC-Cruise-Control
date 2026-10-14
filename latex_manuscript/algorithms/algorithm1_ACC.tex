@@ -1,0 +1,25 @@
+%% Upgraded Algorithm 1: On-Board Sensor-Based Adaptive Cruise Control (ACC)
+\begin{algorithm}[htbp]
+\caption{On-Board Radar/LiDAR Adaptive Cruise Control (ACC) with Actuator Lag}
+\label{alg:acc}
+\begin{algorithmic}[1]
+\Require Ego speed $v_t$, radar bumper gap $g_t$, leader speed $v_{l,t}$, speed limit $v_{\max} = 13.89\text{ m/s}$, safe threshold $g_{\text{safe}} = 10.0\text{ m}$, headway $\tau_{\text{ACC}} = 1.0\text{ s}$, minimum gap $s_{0,\text{ACC}} = 1.5\text{ m}$, gains $k_1 = 0.23\text{ s}^{-2}, k_2 = 0.07\text{ s}^{-1}$, actuator lag $\tau_a = 0.20\text{ s}$.
+\Ensure Commanded longitudinal speed $v_{\text{cmd},t}^{\text{ACC}}$.
+\For{each ACC vehicle $i \in \mathcal{V}_{\text{ACC}}(t)$}
+    \State Query on-board range sensor: $(l, g_t) \gets \texttt{getLeader}(i, 100.0\text{ m})$
+    \If{leader $l$ exists}
+        \State $d_{\text{des},t} \gets s_{0,\text{ACC}} + \tau_{\text{ACC}} v_t$
+        \If{$g_t < g_{\text{safe}}$}
+            \State $v_{\text{raw},t} \gets \max(0.0, \, v_t - 3.0\text{ m/s})$
+        \Else
+            \State $a_{\text{PD},t} \gets \operatorname{clip}\left(k_1(g_t - d_{\text{des},t}) + k_2(v_{l,t} - v_t), \, -3.0, \, 2.6\right)$
+            \State $v_{\text{raw},t} \gets \min(v_{\max}, \, v_t + 1.0\text{ m/s})$
+        \EndIf
+    \Else
+        \State $v_{\text{raw},t} \gets v_{\max}$
+    \EndIf
+    \State Update driveline lag $a_t \gets a_{t-1} + (\Delta t / \tau_a)((v_{\text{raw},t} - v_t)/\Delta t - a_{t-1})$
+    \State Apply $\texttt{setSpeed}(i, \, \operatorname{clip}(v_t + a_t \Delta t, \, 0.0, \, v_{\max}))$
+\EndFor
+\end{algorithmic}
+\end{algorithm}

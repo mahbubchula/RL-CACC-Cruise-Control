@@ -1,0 +1,25 @@
+%% Upgraded Algorithm 4: Proposed Hybrid 5D RL-CACC with Control Barrier Function (CBF) Shield
+\begin{algorithm}[htbp]
+\caption{Hybrid 5D PPO + CACC Longitudinal Control (RL-CACC) with CBF Safety Shield}
+\label{alg:rl_cacc}
+\begin{algorithmic}[1]
+\Require 5D PPO actor policy $\pi_\theta(s_t^{\text{RL-CACC}})$, CACC base controller (Algorithm \ref{alg:cacc}), CBF decay rate $\kappa_{\text{CBF}} = 2.0\text{ s}^{-1}$, driveline actuator lag $\tau_a = 0.20\text{ s}$, $\tau_{\text{CACC}} = 0.5\text{ s}$, $s_0 = 0.5\text{ m}$, $\Delta t = 1.0\text{ s}$.
+\Ensure Shielded, actuator-filtered cooperative velocity command $v_{\text{cmd},t}^{\text{RL-CACC}}$.
+\For{each RL-CACC vehicle $i \in \mathcal{V}_{\text{RL-CACC}}(t)$}
+    \State Measure ego speed $v_t$ and leader tuple $(l, g_t) \gets \texttt{getLeader}(i, 100.0\text{ m})$
+    \If{leader $l$ exists}
+        \State Acquire V2V leader speed $v_{l,t}$, relative speed $\Delta v_t \gets v_t - v_{l,t}$, time headway $h_t \gets g_t / \max(v_t, 0.1)$
+        \State Compute cooperative CACC baseline velocity $v_{\text{base},t}^{\text{CACC}}$ via Algorithm \ref{alg:cacc}
+    \Else
+        \State $v_{l,t} \gets v_t, \quad g_t \gets 100.0\text{ m}, \quad \Delta v_t \gets 0.0\text{ m/s}, \quad h_t \gets 10.0\text{ s}, \quad v_{\text{base},t}^{\text{CACC}} \gets v_{\max}$
+    \EndIf
+    \State Construct 5D cooperative state $s_t^{\text{RL-CACC}} \gets \left[v_t, \, \min(g_t, 100.0), \, \Delta v_t, \, v_{l,t}, \, h_t\right]^\top$
+    \State Query residual velocity modulation: $\Delta v_{\text{RL},t} \gets \operatorname{clip}\left(\pi_\theta(s_t^{\text{RL-CACC}}), \, -1.0, \, +1.0\right)\text{ m/s}$
+    \State Compute unshielded target speed $v_{\text{raw},t} \gets \operatorname{clip}\left(v_{\text{base},t}^{\text{CACC}} + \Delta v_{\text{RL},t}, \, 0.0, \, v_{\max}\right)$
+    \State Compute desired acceleration $u_{\text{des},t} \gets (v_{\text{raw},t} - v_t) / \Delta t$
+    \State Apply CBF forward-invariance shield: $u_{\text{safe},t} \gets \min\left(u_{\text{des},t}, \, \frac{v_{l,t} - v_t + \kappa_{\text{CBF}}(g_t - s_0 - \tau_{\text{CACC}} v_t)}{\tau_{\text{CACC}}}\right)$
+    \State Update first-order driveline actuator state: $a_t \gets a_{t-1} + (\Delta t / \tau_a)(u_{\text{safe},t} - a_{t-1})$
+    \State Command $v_{\text{cmd},t}^{\text{RL-CACC}} \gets \operatorname{clip}\left(v_t + a_t \Delta t, \, 0.0, \, v_{\max}\right)$ via $\texttt{setSpeed}(i, \, v_{\text{cmd},t}^{\text{RL-CACC}})$
+\EndFor
+\end{algorithmic}
+\end{algorithm}

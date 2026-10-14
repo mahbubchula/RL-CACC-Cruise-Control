@@ -1,0 +1,49 @@
+%% Upgraded All 6 Publication Tables in LaTeX (traffic_results_tables_all6.tex)
+%% Replaces traffic_results_table.tex with full multi-regime, statistical, and sensitivity tables
+
+\begin{table}[htbp]
+\centering
+\caption{Full-Horizon Macroscopic Performance Benchmark Across Five Longitudinal Control Regimes}
+\label{tab:full_benchmark}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+\textbf{Metric} & \textbf{HD 100\%} & \textbf{ACC 50\%} & \textbf{RL 50\%} & \textbf{CACC 50\%} & \textbf{RL-CACC 50\%} & \textbf{vs.\ HD} & \textbf{vs.\ CACC} \\
+\midrule
+Clearance Horizon (min) & $90.0$ (18 int) & $75.0$ (15 int) & $65.0$ (13 int) & $60.0$ (12 int) & $\mathbf{60.0}$ (12 int) & $\mathbf{-33.3\%}$ & $0.0\%$ \\
+Post-Demand Tail (min) & $30.0$ & $15.0$ & $5.0$ & $0.0$ & $\mathbf{0.0}$ & $\mathbf{-100.0\%}$ & $0.0\%$ \\
+Space Mean Speed (km/h) & $11.09 \pm 4.45$ & $15.19 \pm 4.07$ & $20.51 \pm 4.64$ & $25.46 \pm 3.20$ & $\mathbf{29.34 \pm 1.26}$ & $\mathbf{+164.5\%}$ & $\mathbf{+15.2\%}$ \\
+Spatial Speed Var ($\text{(km/h)}^2$) & $287.66 \pm 95.3$ & $386.29 \pm 99.3$ & $401.89 \pm 89.3$ & $472.41 \pm 28.1$ & $\mathbf{445.18 \pm 20.7}$ & $+54.8\%^*$ & $\mathbf{-5.8\%}$ \\
+Temporal Volatility $\text{CV}_t$ (\%) & $40.09\%$ & $26.82\%$ & $22.62\%$ & $12.55\%$ & $\mathbf{4.30\%}$ & $\mathbf{-89.3\%}$ & $\mathbf{-65.7\%}$ \\
+Avg Travel Time (s/veh) & $446.40 \pm 267.1$ & $233.82 \pm 133.9$ & $213.35 \pm 141.2$ & $78.97 \pm 35.6$ & $\mathbf{36.43 \pm 7.12}$ & $\mathbf{-91.8\%}$ & $\mathbf{-53.9\%}$ \\
+Avg Intersection Delay (s/veh) & $442.99 \pm 266.9$ & $230.18 \pm 133.8$ & $209.78 \pm 141.1$ & $74.99 \pm 35.4$ & $\mathbf{32.10 \pm 7.10}$ & $\mathbf{-92.8\%}$ & $\mathbf{-57.2\%}$ \\
+Interval Throughput (veh/5m) & $265.11 \pm 91.2$ & $319.73 \pm 113.1$ & $367.77 \pm 95.6$ & $391.42 \pm 22.9$ & $\mathbf{393.50 \pm 22.6}$ & $\mathbf{+48.4\%}$ & $\mathbf{+0.5\%}$ \\
+Stop-Go Halts (halts/step) & $82.59 \pm 31.2$ & $60.25 \pm 27.6$ & $36.42 \pm 23.0$ & $25.09 \pm 14.3$ & $\mathbf{17.81 \pm 3.92}$ & $\mathbf{-78.4\%}$ & $\mathbf{-29.0\%}$ \\
+Standing Queue Length (veh) & $92.11 \pm 34.5$ & $69.53 \pm 31.7$ & $46.69 \pm 26.9$ & $36.75 \pm 16.6$ & $\mathbf{17.67 \pm 3.92}$ & $\mathbf{-80.8\%}$ & $\mathbf{-51.9\%}$ \\
+Interval $\text{CO}_2$ (kg/5m) & $78.93 \pm 21.9$ & $74.52 \pm 26.1$ & $60.99 \pm 21.0$ & $61.24 \pm 10.7$ & $\mathbf{56.97 \pm 4.53}$ & $\mathbf{-27.8\%}$ & $\mathbf{-7.0\%}$ \\
+Total Campaign $\text{CO}_2$ (kg) & $1,420.67$ & $1,117.83$ & $792.91$ & $734.86$ & $\mathbf{681.77}$ & $\mathbf{-52.0\%}$ & $\mathbf{-7.2\%}$ \\
+Specific $\text{CO}_2$ (g/veh) & $297.71$ & $233.08$ & $165.85$ & $156.45$ & $\mathbf{144.44}$ & $\mathbf{-51.5\%}$ & $\mathbf{-7.7\%}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Matched Active-Loading Horizon ($n=12$ Intervals, $0\text{--}60\text{ min}$) vs.\ Post-Demand Clearance Tail ($>60\text{ min}$) Statistical Comparison}
+\label{tab:statistical_decomp}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+\textbf{Metric \& Phase} & \textbf{HD 100\%} & \textbf{ACC 50\%} & \textbf{RL 50\%} & \textbf{CACC 50\%} & \textbf{RL-CACC 50\%} & \textbf{Wilcoxon $p$} & \textbf{Cohen's $d$} \\
+\midrule
+Speed Active ($0\text{--}60\text{m}$) & $13.38\text{ km/h}$ & $16.51\text{ km/h}$ & $20.36\text{ km/h}$ & $25.46\text{ km/h}$ & $\mathbf{29.41\text{ km/h}}$ & $0.000488$ & $+4.89$ \\
+Speed Tail ($>60\text{m}$) & $6.51\text{ km/h}$ & $9.89\text{ km/h}$ & $22.34\text{ km/h}$ & $0\text{ Tail}$ & $\mathbf{0\text{ Tail}}$ & --- & --- \\
+Travel Time Active ($0\text{--}60\text{m}$) & $296.44\text{ s}$ & $174.91\text{ s}$ & $189.20\text{ s}$ & $78.97\text{ s}$ & $\mathbf{36.95\text{ s}}$ & $0.000488$ & $-2.48$ \\
+Travel Time Tail ($>60\text{m}$) & $746.32\text{ s}$ & $469.47\text{ s}$ & $503.11\text{ s}$ & $0\text{ Tail}$ & $\mathbf{0\text{ Tail}}$ & --- & --- \\
+Queue Active ($0\text{--}60\text{m}$) & $95.08\text{ veh}$ & $78.33\text{ veh}$ & $50.33\text{ veh}$ & $36.75\text{ veh}$ & $\mathbf{17.67\text{ veh}}$ & $0.000488$ & $-3.64$ \\
+Tail $\text{CO}_2$ ($>60\text{m}$) & $341.36\text{ kg}$ & $88.39\text{ kg}$ & $7.99\text{ kg}$ & $0.00\text{ kg}$ & $\mathbf{0.00\text{ kg}}$ & --- & --- \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}

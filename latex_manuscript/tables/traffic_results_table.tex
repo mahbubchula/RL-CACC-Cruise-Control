@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Traffic Performance Comparison Across Control Strategies}
+\label{tab:traffic_results}
+
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lcccccccc}
+\hline
+Scenario & Space Mean Speed & Speed Variance & Avg Travel Time & Avg Delay & Throughput & Stop-Go Index & Queue Length & Total CO$_2$ \\
+ & (km/h) & (km/h)$^2$ & (s) & (s) & (veh) &  & (veh) & (kg) \\
+\hline
+
+Human Drive (HD) 100\% & 11.09 & 287.66 & 446.40 & 442.99 & 265.11 & 82.59 & 92.11 & 78.93 \\
+HD 50\% + ACC 50\% & 15.19 & 386.29 & 233.82 & 230.18 & 319.73 & 60.25 & 69.53 & 74.52 \\
+HD 50\% + CACC 50\% & 25.46 & 472.41 & 78.97 & 74.99 & 391.42 & 25.09 & 36.75 & 61.24 \\
+HD 50\% + RL 50\% & 20.51 & 401.89 & 213.35 & 209.78 & 367.77 & 36.42 & 46.69 & 60.99 \\
+HD 50\% + RL\_CACC 50\% & 29.34 & 445.18 & 36.43 & 32.10 & 393.50 & 17.81 & 17.67 & 56.97 \\
+
+\hline
+\end{tabular}
+\end{adjustbox}
+
+\end{table}
