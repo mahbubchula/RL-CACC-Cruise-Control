@@ -222,7 +222,6 @@ If you use this framework, code, datasets, or figures in your research, please c
 @article{hassan2026rlcacc,
   title={Reinforcement Learning--Enhanced Cooperative Adaptive Cruise Control (RL-CACC) in Signalized Mixed-Autonomy Urban Networks: Multi-Regime Dynamics, String Stability, and Gridlock Hysteresis},
   author={Hassan, Mahbub},
-  journal={IEEE Transactions on Intelligent Transportation Systems},
   year={2026},
   note={Under Review}
 }
